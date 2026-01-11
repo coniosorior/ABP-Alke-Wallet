@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <title>Billeta Inicio</title>
+      <style>
+    body {
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+  .login-container {
+    margin-top: 50px;
+  }
+
+  .login-form {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .form-field {
+    margin-bottom: 16px;
+  }
+
+  .menu-btn {
+    margin-top: 15px;
+  }
+  </style>
+</head>
+<body>
+    
+<div class="container login-container">
+  <h2>Inicio de sesión</h2>
+    <form class="login-form" id="loginForm">
+      <div class="form-field">
+        <label class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="Email"required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">Contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Contraseña"required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+    </form>
+
+    <div id="message" class="message"></div>
+  </div>
+
+
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
