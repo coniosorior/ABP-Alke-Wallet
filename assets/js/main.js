@@ -1,26 +1,4 @@
 
-/* =====================================
-   INDEX 
-===================================== */
-
-if ($("#welcomeCard").length) {
-
- 
-  $("#welcomeCard").fadeIn(600);
-
-  setTimeout(function () {
-    $("#goBtn").addClass("aw-pulse");
-  }, 900);
-
-  setTimeout(function () {
-    $("#autoText").fadeIn(300);
-  }, 1300);
-
-  setTimeout(function () {
-    window.location.href = "menu.html";
-  }, 2200);
-}
-
 
 $(document).ready(function () {
 
