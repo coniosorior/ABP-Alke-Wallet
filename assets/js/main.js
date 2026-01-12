@@ -1,36 +1,31 @@
 
-/* =========================
-   INDEX (Bienvenida)
-========================= */
+/* =====================================
+   INDEX 
+===================================== */
 
-#welcomeCard,
-#autoText {
-  display: none;
+if ($("#welcomeCard").length) {
+
+ 
+  $("#welcomeCard").fadeIn(600);
+
+  setTimeout(function () {
+    $("#goBtn").addClass("aw-pulse");
+  }, 900);
+
+  setTimeout(function () {
+    $("#autoText").fadeIn(300);
+  }, 1300);
+
+  setTimeout(function () {
+    window.location.href = "menu.html";
+  }, 2200);
 }
-
-
-.aw-pulse {
-  animation: awPulse 1.1s infinite;
-}
-
-@keyframes awPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.04); }
-  100% { transform: scale(1); }
-}
-
-
-
-
-
 
 
 $(document).ready(function () {
 
-  // ✅ 1) Elegimos sessionStorage para toda la app
   const STORAGE = sessionStorage;
 
-  // ✅ 2) Helpers (funciones pequeñas) para ordenar el código
   function mostrarAlerta(tipo, mensaje) {
     if (!$("#alert-container").length) return;
 
@@ -52,14 +47,12 @@ $(document).ready(function () {
   }
 
   function protegerPantallas() {
-    // Si NO estás en login y no hay sesión, vuelve a login
     const estasEnLogin = $("#loginForm").length > 0;
     if (!estasEnLogin && !isLoggedIn()) {
       window.location.href = "login.html";
     }
   }
 
-  // ✅ Protege pantallas desde el inicio
   protegerPantallas();
 
   /* =====================================
@@ -78,11 +71,8 @@ $(document).ready(function () {
         mostrarAlerta("danger", "Completa correo y contraseña.");
         return;
       }
-
-      // ✅ Guardamos sesión en sessionStorage
       STORAGE.setItem("aw_user", email);
 
-      // ✅ Inicializamos datos para esta sesión
       initDataSiNoExiste();
 
       mostrarAlerta("success", "Login correcto. Redirigiendo...");
@@ -95,12 +85,12 @@ $(document).ready(function () {
   }
 
   /* =====================================
-     LOGOUT (opcional: si agregas botón)
+     LOGOUT 
   ===================================== */
 
   if ($("#logoutBtn").length) {
     $("#logoutBtn").click(function () {
-      STORAGE.clear(); // borra todo lo de esta sesión
+      STORAGE.clear(); 
       window.location.href = "login.html";
     });
   }
