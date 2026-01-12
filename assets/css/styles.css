@@ -1,0 +1,23 @@
+
+body {
+  min-height: 100vh;
+}
+
+.login-container {
+  max-width: 420px;
+}
+
+.balance-card {
+  font-size: 1.4rem;
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
