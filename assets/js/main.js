@@ -1,5 +1,36 @@
+
+/* =========================
+   INDEX (Bienvenida)
+========================= */
+
+#welcomeCard,
+#autoText {
+  display: none;
+}
+
+
+.aw-pulse {
+  animation: awPulse 1.1s infinite;
+}
+
+@keyframes awPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+
+
+
+
+
+
 $(document).ready(function () {
 
+  // ✅ 1) Elegimos sessionStorage para toda la app
+  const STORAGE = sessionStorage;
+
+  // ✅ 2) Helpers (funciones pequeñas) para ordenar el código
   function mostrarAlerta(tipo, mensaje) {
     if (!$("#alert-container").length) return;
 
@@ -9,6 +40,27 @@ $(document).ready(function () {
       </div>
     `);
   }
+
+  function initDataSiNoExiste() {
+    if (STORAGE.getItem("aw_balance") === null) STORAGE.setItem("aw_balance", "60000");
+    if (STORAGE.getItem("aw_contacts") === null) STORAGE.setItem("aw_contacts", "[]");
+    if (STORAGE.getItem("aw_transactions") === null) STORAGE.setItem("aw_transactions", "[]");
+  }
+
+  function isLoggedIn() {
+    return STORAGE.getItem("aw_user") !== null;
+  }
+
+  function protegerPantallas() {
+    // Si NO estás en login y no hay sesión, vuelve a login
+    const estasEnLogin = $("#loginForm").length > 0;
+    if (!estasEnLogin && !isLoggedIn()) {
+      window.location.href = "login.html";
+    }
+  }
+
+  // ✅ Protege pantallas desde el inicio
+  protegerPantallas();
 
   /* =====================================
      LOGIN
@@ -27,17 +79,11 @@ $(document).ready(function () {
         return;
       }
 
-      localStorage.setItem("aw_user", email);
+      // ✅ Guardamos sesión en sessionStorage
+      STORAGE.setItem("aw_user", email);
 
-      if (localStorage.getItem("aw_balance") === null) {
-        localStorage.setItem("aw_balance", "60000");
-      }
-      if (localStorage.getItem("aw_contacts") === null) {
-        localStorage.setItem("aw_contacts", "[]");
-      }
-      if (localStorage.getItem("aw_transactions") === null) {
-        localStorage.setItem("aw_transactions", "[]");
-      }
+      // ✅ Inicializamos datos para esta sesión
+      initDataSiNoExiste();
 
       mostrarAlerta("success", "Login correcto. Redirigiendo...");
 
@@ -49,13 +95,26 @@ $(document).ready(function () {
   }
 
   /* =====================================
+     LOGOUT (opcional: si agregas botón)
+  ===================================== */
+
+  if ($("#logoutBtn").length) {
+    $("#logoutBtn").click(function () {
+      STORAGE.clear(); // borra todo lo de esta sesión
+      window.location.href = "login.html";
+    });
+  }
+
+  /* =====================================
      MENU
   ===================================== */
 
   if ($("#balance").length) {
 
-    const saldo = Number(localStorage.getItem("aw_balance")) || 0;
-    $("#balance").text("$" + saldo.toLocaleString("es-CL"));
+    initDataSiNoExiste();
+
+    const saldo = Number(STORAGE.getItem("aw_balance")) || 0;
+    $("#balance").text(saldo.toLocaleString("es-CL"));
 
     $("#btnDepositar").click(function () {
       $("#menuMessage").text("Redirigiendo a depósito...").css("color", "green");
@@ -85,8 +144,9 @@ $(document).ready(function () {
 
   if ($("#depositForm").length) {
 
-    
-    const saldoActual = Number(localStorage.getItem("aw_balance")) || 0;
+    initDataSiNoExiste();
+
+    const saldoActual = Number(STORAGE.getItem("aw_balance")) || 0;
     $("#currentBalance").text("$" + saldoActual.toLocaleString("es-CL"));
 
     $("#depositForm").submit(function (event) {
@@ -99,10 +159,10 @@ $(document).ready(function () {
         return;
       }
 
-      const saldo = Number(localStorage.getItem("aw_balance")) || 0;
+      const saldo = Number(STORAGE.getItem("aw_balance")) || 0;
       const nuevoSaldo = saldo + monto;
 
-      localStorage.setItem("aw_balance", String(nuevoSaldo));
+      STORAGE.setItem("aw_balance", String(nuevoSaldo));
 
       if ($("#depositLegend").length) {
         $("#depositLegend")
@@ -110,14 +170,14 @@ $(document).ready(function () {
           .css("color", "green");
       }
 
-      const transacciones = JSON.parse(localStorage.getItem("aw_transactions") || "[]");
+      const transacciones = JSON.parse(STORAGE.getItem("aw_transactions") || "[]");
       transacciones.unshift({
         type: "deposit",
         amount: monto,
         detail: `Depósito de $${monto.toLocaleString("es-CL")}`,
         date: new Date().toLocaleString("es-CL")
       });
-      localStorage.setItem("aw_transactions", JSON.stringify(transacciones));
+      STORAGE.setItem("aw_transactions", JSON.stringify(transacciones));
 
       mostrarAlerta("success", "Depósito realizado con éxito. Redirigiendo al menú...");
 
@@ -135,12 +195,14 @@ $(document).ready(function () {
 
   if ($("#contactList").length) {
 
+    initDataSiNoExiste();
+
     function obtenerContactos() {
-      return JSON.parse(localStorage.getItem("aw_contacts") || "[]");
+      return JSON.parse(STORAGE.getItem("aw_contacts") || "[]");
     }
 
     function guardarContactos(contactos) {
-      localStorage.setItem("aw_contacts", JSON.stringify(contactos));
+      STORAGE.setItem("aw_contacts", JSON.stringify(contactos));
     }
 
     let contactoSeleccionado = null;
@@ -189,16 +251,13 @@ $(document).ready(function () {
       }
     }
 
-  
     renderContactos("");
 
-  
     $("#searchForm").submit(function (e) {
       e.preventDefault();
       renderContactos($("#searchContact").val());
     });
 
-    
     $("#btnNuevoContacto").click(function () {
       $("#newContactForm").show();
     });
@@ -260,23 +319,23 @@ $(document).ready(function () {
         return;
       }
 
-      const saldo = Number(localStorage.getItem("aw_balance")) || 0;
+      const saldo = Number(STORAGE.getItem("aw_balance")) || 0;
       if (monto > saldo) {
         mostrarAlerta("danger", "Saldo insuficiente.");
         return;
       }
 
       const nuevoSaldo = saldo - monto;
-      localStorage.setItem("aw_balance", String(nuevoSaldo));
+      STORAGE.setItem("aw_balance", String(nuevoSaldo));
 
-      const transacciones = JSON.parse(localStorage.getItem("aw_transactions") || "[]");
+      const transacciones = JSON.parse(STORAGE.getItem("aw_transactions") || "[]");
       transacciones.unshift({
         type: "send",
         amount: monto,
         detail: `Envío a ${contactoSeleccionado.nombre} (${contactoSeleccionado.alias})`,
         date: new Date().toLocaleString("es-CL")
       });
-      localStorage.setItem("aw_transactions", JSON.stringify(transacciones));
+      STORAGE.setItem("aw_transactions", JSON.stringify(transacciones));
 
       $("#sendMessage")
         .text(`✅ Envío realizado: $${monto.toLocaleString("es-CL")} a ${contactoSeleccionado.nombre}`)
@@ -298,6 +357,8 @@ $(document).ready(function () {
 
   if ($("#transactionsList").length) {
 
+    initDataSiNoExiste();
+
     function getTipoTransaccion(tipo) {
       if (tipo === "deposit") return "Depósito";
       if (tipo === "send") return "Envío de dinero";
@@ -315,7 +376,7 @@ $(document).ready(function () {
     }
 
     function obtenerTransacciones() {
-      return JSON.parse(localStorage.getItem("aw_transactions") || "[]");
+      return JSON.parse(STORAGE.getItem("aw_transactions") || "[]");
     }
 
     function mostrarUltimosMovimientos(filtro) {
@@ -348,7 +409,7 @@ $(document).ready(function () {
 
             <div class="mt-1">${t.detail || ""}</div>
 
-            <div class="text-muted mt-1" style="font-size: 0.9em;">
+            <div class="text-muted mt-1 transaction-date">
               ${t.date || ""}
             </div>
 
@@ -368,4 +429,3 @@ $(document).ready(function () {
   }
 
 });
-

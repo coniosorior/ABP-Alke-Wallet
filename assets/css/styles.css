@@ -21,3 +21,46 @@ body {
   max-height: 200px;
   overflow-y: auto;
 }
+
+.aw-container{
+  max-width: 720px;
+}
+
+.aw-card{
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.aw-balance{
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.aw-currency{
+  margin-right: 4px;
+  opacity: 0.9;
+}
+
+@media (max-width: 576px){
+  .aw-balance{
+    font-size: 1.8rem;
+  }
+}
+
+#welcomeCard,
+#autoText {
+  display: none;
+}
+
+
+.aw-pulse {
+  animation: awPulse 1.1s infinite;
+}
+
+@keyframes awPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
