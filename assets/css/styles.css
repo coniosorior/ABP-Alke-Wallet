@@ -1,0 +1,52 @@
+
+body {
+  min-height: 100vh;
+}
+
+.login-container {
+  max-width: 420px;
+}
+
+.balance-card {
+  font-size: 1.4rem;
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.aw-container{
+  max-width: 720px;
+}
+
+.aw-card{
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.aw-balance{
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.aw-currency{
+  margin-right: 4px;
+  opacity: 0.9;
+}
+
+@media (max-width: 576px){
+  .aw-balance{
+    font-size: 1.8rem;
+  }
+}
+
+

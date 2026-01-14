@@ -1,69 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-    <title>Billeta Inicio</title>
-      <style>
-    body {
-      padding: 20px;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
 
-    .container {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-  .login-container {
-    margin-top: 50px;
-  }
-
-  .login-form {
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
-
-  .form-field {
-    margin-bottom: 16px;
-  }
-
-  .menu-btn {
-    margin-top: 15px;
-  }
-  </style>
+  <title>Login | Alke Wallet</title>
 </head>
-<body>
-    
-<div class="container login-container">
-  <h2>Inicio de sesión</h2>
-    <form class="login-form" id="loginForm">
-      <div class="form-field">
-        <label class="form-label">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          placeholder="Email"required>
+
+<body class="bg-light">
+  <main class="container mt-5 login-container">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="mb-4 text-center">Alke Wallet</h3>
+
+        <div id="alert-container"></div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" class="form-control" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            Ingresar
+          </button>
+        </form>
+
+        <small class="text-muted d-block mt-3 text-center">
+         
+        </small>
       </div>
+    </div>
+  </main>
 
-      <div class="form-field">
-        <label class="form-label">Contraseña</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          placeholder="Contraseña"required>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-    </form>
-
-    <div id="message" class="message"></div>
-  </div>
-
-
-<script src="assets/js/main.js"></script>
-
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <title>Deposit</title>
+
+  <style>
+    body { padding: 20px; background-color: #f8f9fa; }
+    .container { max-width: 400px; margin: 0 auto; }
+    .volver-btn { margin-top: 15px; }
+    .deposito-btn { margin-top: 15px; width: 100%; }
+    .saldo-box { background: white; padding: 12px; border-radius: 8px; margin-bottom: 15px; }
+    #depositLegend { margin-top: 12px; font-weight: bold; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="mb-3">Depositar</h2>
+
+    <div class="saldo-box">
+      <div>Saldo actual:</div>
+      <h4 id="currentBalance" class="mb-0">$0</h4>
+    </div>
+
+    <div id="alert-container"></div>
+
+    <form id="depositForm">
+      <div class="form-group">
+        <label for="depositAmount">Monto a depositar:</label>
+        <input type="number" class="form-control" id="depositAmount" placeholder="Ingresar cantidad">
+      </div>
+
+      <button type="submit" class="btn btn-primary deposito-btn">
+        Realizar depósito
+      </button>
+    </form>
+
+  
+    <div id="depositLegend"></div>
+
+    <a href="menu.html" class="btn btn-secondary volver-btn">
+      Volver al Menú Principal
+    </a>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
